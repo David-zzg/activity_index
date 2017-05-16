@@ -1,6 +1,7 @@
 活动页面自动化配置方案
 
 ![配置](http://clubimg.kingdee.com/club/attachments/school/images/imgupload/20170516kaLg9haO52naElLR.png)
+（成功的最后一步应该是返回url，这里写错了）
 
 我基于这个流程，自己写了个demo。  
 后台服务器采用express，前端采用vue2，并采用了官方的脚手架来做构建。  
@@ -66,11 +67,13 @@
 
 为配合demo使用，我预先在npm仓库发了两个包，分别为jiayoubao_ui_component1,jiayoubao_ui_component2。并设置了不同的版本号
 
+config应该从数据库中获取，这里为了方便，我直接在文件中读取
+
 
 
 demo启动方法.
 ```
-1.安装依赖
+1.安装依赖 cnpm install
 2.启动server// 根目录下npm start启动服务器，其中端口号为3000
 3.修改config.js配置（该配置为可视化编辑页面生成的配置）
 4.执行npm run build 生成文件。并在浏览器预览效果
