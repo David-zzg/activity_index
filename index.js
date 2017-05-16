@@ -1,62 +1,20 @@
 const fs = require("fs")
 const path = require("path")
 var opn = require('opn')
-var config = {
-    project:"活动2",
-    route:[{
-        title:"第一页",
-        data:{},
-        name:"page1",
-        param:["id"],
-        components:[{
-            component:"component1",
-            npm:"jiayoubao_ui_component1",
-            data:{
-                name:"component1"
-            }
-        },{
-            component:"component2",
-            npm:"jiayoubao_ui_component2",
-            version:"1.3.0",
-            data:{
-                name:"component2"
-            }
-        }]
-    },{
-        title:"第二页",
-        data:{},
-        name:"page2",
-        components:[{
-            component:"component1",
-            npm:"jiayoubao_ui_component1",
-            version:"1.2.0",
-            data:{
-                name:"component3"
-            }
-        },{
-            component:"component2",
-            npm:"jiayoubao_ui_component2",
-            version:"1.3.0",
-            data:{
-                name:"component4"
-            }
-        }]
-    }]
-}
+var config = require("./config")
 
-var default_options = {
-    npm:"cnpm",//通过cnpm安装依赖
-    build:{
-        index: path.resolve(__dirname, './public/'+config.project+'/index.html'),
-        assetsRoot: path.resolve(__dirname, './public/'+config.project),
-        assetsSubDirectory: 'static',
-        assetsPublicPath: '/'+config.project,
+//build打包输出配置
+const creatOptions = (config,options={})=>{
+    return {
+        npm:"cnpm",//通过cnpm安装依赖
+        build:{
+            index: path.resolve(__dirname, './public/'+config.project+'/index.html'),
+            assetsRoot: path.resolve(__dirname, './public/'+config.project),
+            assetsSubDirectory: 'static',
+            assetsPublicPath: '/'+config.project,
+        }
     }
 }
-
-
-const prefix = `./project/${config.project}`
-
 
 const createRouteItem= (config,options)=>{
     var list = []
@@ -276,6 +234,8 @@ const start = (env,config,options)=>{
 }
 
 var env = process.argv[2]
+var options = creatOptions(config)
+const prefix = `./project/${config.project}`
 createProject(config,options,()=>{
     createPackageDep(config,options)//修改package.json  添加依赖
     createVueComponent(config,options)//创建components
@@ -288,7 +248,3 @@ createProject(config,options,()=>{
 })//创建项目
 
 
-
-export default (config,options)=>{
-
-}
